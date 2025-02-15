@@ -17,7 +17,9 @@ public class SecurityConfig {
                 //Toutes les requetes necessaiste une authentification
                 .authorizeHttpRequests(ar->ar.anyRequest().authenticated())
                 .oauth2Login(Customizer.withDefaults())
-                .logout(lougout-> lougout.logoutSuccessUrl("/").permitAll().deleteCookies("JSESSIONID"))
+                .logout(logout-> logout
+                        .logoutSuccessUrl("/").permitAll()
+                        .deleteCookies("JSESSIONID"))
                 .build();
     }
 }
