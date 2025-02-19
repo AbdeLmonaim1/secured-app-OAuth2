@@ -38,7 +38,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(ar->ar.requestMatchers("/","/oauth2Login/**","/webjars/**").permitAll())
                 //Toutes les requetes necessaiste une authentification
                 .authorizeHttpRequests(ar->ar.anyRequest().authenticated())
-                .oauth2Login(ol->ol.loginPage("/oauth2Login"))
+                .oauth2Login(ol->ol.loginPage("/oauth2Login")
+                                .defaultSuccessUrl("/")
+                        )
                 .logout(logout-> logout
 //                        .logoutSuccessHandler(oidcLogoutSuccessHandler())
                         .logoutSuccessUrl("/").permitAll()
