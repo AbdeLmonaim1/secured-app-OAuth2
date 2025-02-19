@@ -6,6 +6,7 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/appcustomer-front-thymeleaf/pom.xml" />
+        <option value="$PROJECT_DIR$/product-inventory-service/pom.xml" />
       </list>
     </option>
   </component>
