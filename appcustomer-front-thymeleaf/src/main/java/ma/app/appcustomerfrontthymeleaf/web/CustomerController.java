@@ -1,17 +1,25 @@
 package ma.app.appcustomerfrontthymeleaf.web;
 
+import ma.app.appcustomerfrontthymeleaf.model.Product;
 import ma.app.appcustomerfrontthymeleaf.repository.CustomerRepository;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestClient;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -29,8 +37,28 @@ public class CustomerController {
         model.addAttribute("customers", customerRepository.findAll());
         return "customers";
     }
+    //En va envoyer une requette qu microservice pour recuperer les produits
     @GetMapping("/products")
+
+
     public String products(Model model) {
+        //1 - il faut recuperer JWT d'utilisateur
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        //On suppose qu'on a fait l'authentification avec une client Oauth2 (Keycloack ou Google)
+        OAuth2AuthenticationToken oAuth2AuthenticationToken = (OAuth2AuthenticationToken) authentication;
+        DefaultOidcUser oidcUser = (DefaultOidcUser) oAuth2AuthenticationToken.getPrincipal();
+        //Recuperer le Token
+        String jwtTokenValue = oidcUser.getIdToken().getTokenValue();
+        System.out.println(jwtTokenValue);
+        RestClient restClient = RestClient.create("http://localhost:8098");
+        List<Product> products = restClient.get()
+                .uri("/products")
+                .headers(httpHeaders -> httpHeaders.set(httpHeaders.AUTHORIZATION, "Bearer "+jwtTokenValue))
+                .retrieve()
+                .body(new ParameterizedTypeReference<>() {})
+                ;
+        model.addAttribute("products", products);
         return "products";
     }
     @GetMapping("/home")
