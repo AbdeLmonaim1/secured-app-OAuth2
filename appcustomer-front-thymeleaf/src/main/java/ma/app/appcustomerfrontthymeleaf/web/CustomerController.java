@@ -37,7 +37,7 @@ public class CustomerController {
         model.addAttribute("customers", customerRepository.findAll());
         return "customers";
     }
-    //En va envoyer une requette qu microservice pour recuperer les produits
+    //En va envoyer une requette au microservice pour recuperer les produits
     @GetMapping("/products")
 
 
