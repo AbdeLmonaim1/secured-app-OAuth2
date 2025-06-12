@@ -39,8 +39,6 @@ public class CustomerController {
     }
     //En va envoyer une requette au microservice pour recuperer les produits
     @GetMapping("/products")
-
-
     public String products(Model model) {
         //1 - il faut recuperer JWT d'utilisateur
         SecurityContext context = SecurityContextHolder.getContext();

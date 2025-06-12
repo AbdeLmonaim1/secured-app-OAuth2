@@ -33,6 +33,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                //Puique on a utiliser une une authentification statFull(HTML rendu cote server) on a besoin d'activer crsf()
                 .csrf(Customizer.withDefaults())
                 //Cette ressources ne necessaiste pas une authentification
                 .authorizeHttpRequests(ar->ar.requestMatchers("/","/oauth2Login/**","/webjars/**").permitAll())
