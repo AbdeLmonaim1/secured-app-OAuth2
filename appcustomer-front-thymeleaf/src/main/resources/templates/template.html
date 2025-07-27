@@ -30,24 +30,18 @@
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
-            </ul>
-            <div class="navbar">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <li class="nav-item">
+                    <a class="nav-link">
                         <span th:text="${#authentication.name}"></span>
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" th:href="@{/login}">Login</a></li>
-                        <li>
-                            <form th:action="@{/logout}" th:method="post">
-                                <button type="submit" class="btn btn-danger">Logout</button>
-                            </form>
-                        </li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Profile</a></li>
-                    </ul>
                 </li>
-            </div>
+                <li class="nav-item"><a class="btn btn-success mx-2" th:href="@{/login}">Login</a></li>
+                <li class="nav-item">
+                    <form th:action="@{/logout}" th:method="post">
+                        <button type="submit" class="btn btn-danger">Logout</button>
+                    </form>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>

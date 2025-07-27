@@ -19,14 +19,11 @@ import java.util.stream.Stream;
 public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationToken> {
     //C'est pour trouver les roles dans JWT et les charger dans le context
     private final JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-
-
     @Override
     public AbstractAuthenticationToken convert(Jwt jwt) {
         Collection<GrantedAuthority> authorities = Stream.concat(
                 jwtGrantedAuthoritiesConverter.convert(jwt).stream(),
                 extractRessourceRoles(jwt).stream()
-
         ).collect(Collectors.toSet());
         return new JwtAuthenticationToken(jwt, authorities,jwt.getClaim("preferred_username"));
     }
@@ -39,7 +36,6 @@ public class JwtAuthConverter implements Converter<Jwt, AbstractAuthenticationTo
         realmAccess = jwt.getClaim("realm_access");
         //Chercher les rols dans realmAccess
         roles = (Collection<String>) realmAccess.get("roles");
-
         return roles.stream().map(role -> new SimpleGrantedAuthority(role)).collect(Collectors.toSet());
     }
 }
