@@ -29,6 +29,7 @@
     "bootstrap": "^5.3.7",
     "bootstrap-icons": "^1.13.1",
     "keycloak-angular": "^20.0.0",
+    "keycloak-js": "^26.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

@@ -13,7 +13,7 @@ import { Products } from './products/products';
 
 
 import {HttpClientModule} from '@angular/common/http';
-import {KeycloakService} from 'keycloak-angular';
+import {KeycloakAngularModule, KeycloakService} from 'keycloak-angular';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
@@ -26,7 +26,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
       initOptions: {
         onLoad: 'check-sso',
         silentCheckSsoRedirectUri:
-          window.location.origin + '/assets/silent-check-sso.html'
+          window.location.origin + '/silent-check-sso.html'
       }
     });
 }
@@ -41,6 +41,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    KeycloakAngularModule
 
   ],
   providers: [

@@ -17,10 +17,22 @@
       </li>
 
     </ul>
-    <form class="form-inline my-2 my-lg-0 d-flex">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <!-- Right-aligned dropdown -->
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+<!--          <span>{{securityService.profile?.name}}</span>-->
+          <span>{{securityService.profile?.firstName}}</span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="#">Profile</a></li>
+          <li><a class="dropdown-item" (click)="login()">Login</a></li>
+          <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+      </li>
+    </ul>
   </div>
 </nav>
 <router-outlet></router-outlet>
