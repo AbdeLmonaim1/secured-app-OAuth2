@@ -12,7 +12,7 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="/customers">Customers</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="keycloak.getUserRoles().includes('ADMIN')">
         <a class="nav-link" routerLink="/products">Products</a>
       </li>
 
@@ -22,9 +22,12 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 <!--          <span>{{securityService.profile?.name}}</span>-->
-          <span>{{securityService.profile?.firstName}}</span>
+          <span *ngIf="profile; else not_logged_in">
+            {{profile?.username}}
+          </span>
+          <ng-template #not_logged_in>Not Logged</ng-template>
         </a>
-        <ul class="dropdown-menu dropdown-menu-end">
+        <ul class="dropdown-menu dropd own-menu-end">
           <li><a class="dropdown-item" href="#">Profile</a></li>
           <li><a class="dropdown-item" (click)="login()">Login</a></li>
           <li><a class="dropdown-item" (click)="logout()">Logout</a></li>

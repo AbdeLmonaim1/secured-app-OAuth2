@@ -1,6 +1,7 @@
 import {Component, OnInit, signal} from '@angular/core';
 import {Security} from './services/security';
 import {KeycloakService} from 'keycloak-angular';
+import {KeycloakProfile} from 'keycloak-js';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,17 @@ import {KeycloakService} from 'keycloak-angular';
   styleUrl: './app.css'
 })
 export class App implements OnInit{
+  profile?:KeycloakProfile;
   protected readonly title = signal('customer-front-angular-app');
-  constructor(public securityService: Security, private keycloak: KeycloakService) {
+  constructor(public keycloak: KeycloakService) {
   }
   ngOnInit() {
+    if (this.keycloak.isLoggedIn()){
+      this.keycloak.loadUserProfile().then(profile =>{
+        this.profile = profile;
+        console.log("The user authenticated => ", this.profile);
+      })
+    }
   }
 
   logout() {

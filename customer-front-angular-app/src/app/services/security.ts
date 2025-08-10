@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 import {KeycloakEventTypeLegacy, KeycloakService} from 'keycloak-angular';
 import {KeycloakProfile} from "keycloak-js";
 
-@Injectable({
-  providedIn: 'root'
-})
+//@Injectable({providedIn: 'root'})
 export class Security {
   public profile?: KeycloakProfile;
   constructor(private kcService: KeycloakService) {
